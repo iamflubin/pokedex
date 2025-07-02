@@ -1,0 +1,3 @@
+<app-search-bar [(query)]="query" />
+
+<app-pokemon-list [list]="filteredList()" (select)="onSelect($event)" />

@@ -1,0 +1,5 @@
+<div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 p-4">
+  @for (name of list(); track name) {
+    <app-pokemon-card [name]="name" (select)="onSelect(name)" />
+  }
+</div>

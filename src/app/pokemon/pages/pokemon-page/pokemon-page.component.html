@@ -1,0 +1,65 @@
+@if (pokemon(); as pokemon) {
+  <div class="max-w-5xl mx-auto p-6 space-y-8 bg-white rounded-2xl shadow-lg">
+    <div class="flex flex-col md:flex-row items-center gap-6">
+      <img
+        [src]="pokemon.sprites.other['official-artwork'].front_default"
+        [alt]="pokemon.name"
+        class="h-40 w-40 object-contain"
+      />
+      <div class="text-center md:text-left">
+        <h1 class="text-3xl font-bold capitalize">{{ pokemon.name }}</h1>
+        <p class="text-gray-500">ID: {{ pokemon.id }}</p>
+        <div class="mt-2 flex flex-wrap gap-2 justify-center md:justify-start">
+          @for (type of pokemon.types; track type.slot) {
+            <span
+              class="px-3 py-1 rounded-full text-white text-sm font-medium"
+              [ngClass]="'bg-' + type.type.name"
+            >
+              {{ type.type.name }}
+            </span>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Section -->
+    <section>
+      <h2 class="text-xl font-semibold mb-3">Base Stats</h2>
+      <ul class="grid sm:grid-cols-2 gap-2 text-gray-700">
+        @for (stat of pokemon.stats; track stat.stat.name) {
+          <li
+            class="flex justify-between bg-gray-100 rounded px-3 py-1 capitalize"
+          >
+            <span>{{ stat.stat.name }}</span>
+            <span class="font-bold">{{ stat.base_stat }}</span>
+          </li>
+        }
+      </ul>
+    </section>
+
+    <!-- Abilities Section -->
+    <section>
+      <h2 class="text-xl font-semibold mb-3">Abilities</h2>
+      <ul class="space-y-1 text-gray-700">
+        @for (ability of pokemon.abilities; track ability.ability.name) {
+          <li class="capitalize">
+            {{ ability.ability.name }}
+            @if (ability.is_hidden) {
+              <span class="text-xs text-blue-600 ml-1">(Hidden)</span>
+            }
+          </li>
+        }
+      </ul>
+    </section>
+
+    <!-- Sprites Section -->
+    <section>
+      <h2 class="text-xl font-semibold mb-3">Sprites</h2>
+      <div class="flex flex-wrap gap-4">
+        @for (img of getSprites(pokemon); track $index) {
+          <img [src]="img" alt="sprite" class="h-20 bg-gray-100 rounded" />
+        }
+      </div>
+    </section>
+  </div>
+}
